@@ -10,4 +10,5 @@ const Child1 = React.memo(({ user, onSave }: any) => {
   );
 });
 
+
 export default Child1;
