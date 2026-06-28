@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import "./App.css";
+import Child1 from "./pages/Child1";
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
@@ -57,7 +58,7 @@ const App: React.FC = () => {
 
   //   return () => split.revert();
   // }, []);
-
+  const [count, setCount] = useState(0);
   const mockApiResponse = {
     page: 1,
     total_pages: 1,
@@ -144,6 +145,17 @@ const App: React.FC = () => {
     }
     return maxWater; // Return the maximum water area found
   }
+  const user = useMemo(
+    () => ({
+      name: "praveen",
+      age: "28",
+    }),
+    [],
+  );
+
+  const onSave = useCallback(() => {
+    console.log("saved");
+  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-800 text-white text-center px-4 relative overflow-hidden">
@@ -157,6 +169,14 @@ const App: React.FC = () => {
       <div className="text-white text-xl font-bold opacity-100 p-10 animate-float">
         “The only limit to our realization of tomorrow is our doubts of today.”
       </div>
+      <Child1 user={user} onSave={onSave} />
+      <button
+        className="border border-white px-3 py-2 rounded-lg cursor-pointer "
+        title="can_do_it"
+        onClick={() => setCount(count + 1)}
+      >
+        You Can Do It
+      </button>
     </div>
   );
 };
