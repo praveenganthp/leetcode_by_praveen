@@ -59,6 +59,7 @@ const App: React.FC = () => {
   //   return () => split.revert();
   // }, []);
   const [count, setCount] = useState(0);
+  // 1. assync transaction aggregator
   const mockApiResponse = {
     page: 1,
     total_pages: 1,
@@ -113,9 +114,12 @@ const App: React.FC = () => {
     console.log("Total amount spent by praveen for platinum:", totalSpentonPlatinum);
     const maxWater = maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]);
     console.log("Maximum water area:", maxWater);
+    //3
+    const prefixes = findCommonLongestPrefix(["flight", "flow", "fly"]);
+    console.log("common prefixes from the strings", prefixes);
   }, []);
 
-  // find the container with most water
+  // 2. find the container with most water
   // const height = [1, 8, 6, 2, 5, 4, 8, 3, 7];
 
   //function
@@ -156,6 +160,24 @@ const App: React.FC = () => {
   const onSave = useCallback(() => {
     console.log("saved");
   }, [user]);
+
+  // 3. find longest common prefix from array of strings
+  function findCommonLongestPrefix(strs) {
+    //initailly let put that longest prefix as emty string:
+    let LongestPrefix = "";
+
+    // for find the repeated - first we can take the first string
+    for (let i = 0; i < strs[0].length; i++) {
+      let currentChar = strs[0][i]; // at every loop we get the char as currentchar
+      for (let j = 1; j < strs.length; j++) {
+        if (i >= strs[j].length || strs[j][i] !== currentChar) {
+          return LongestPrefix;
+        }
+      }
+      LongestPrefix += currentChar;
+    }
+    return LongestPrefix;
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-800 text-white text-center px-4 relative overflow-hidden">
